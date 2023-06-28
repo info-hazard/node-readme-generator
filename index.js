@@ -37,7 +37,7 @@ const questions = [
     {
         type: 'list',
         message: 'Please choose a license to use for your project.',
-        choices: ['MIT', 'Apache', 'GNU', 'None'],
+        choices: ['mit', 'apache', 'agpl', 'none'],
         name: 'license',
     },
     {
@@ -54,11 +54,11 @@ const questions = [
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
-    fs.writeFile(`${fileName}.md`, generateMarkdown(data), "utf8", function (error) {
+    fs.writeFile(`./readme_deposit/${fileName}.md`, generateMarkdown(data), "utf8", function (error) {
      if (error) {
             console.log(error);
         } else {
-            console.log(`Success! Data written to ${fileName}.md.`);
+            console.log('Success! README Created!');
         }
     });
 }
