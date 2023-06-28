@@ -12,7 +12,7 @@ const questions = [
     {
         type: 'input',
         message: 'Please enter your Github username.',
-        name: 'githubUser',
+        name: 'github',
     },
     {
         type: 'input',
@@ -21,18 +21,8 @@ const questions = [
     },
     {
         type: 'input',
-        message: 'Please enter a short description of what your application is.',
-        name: 'descriptionWhat',
-    },
-    {
-        type: 'input',
-        message: 'Please enter a short description of why you created this application.',
-        name: 'descriptionWhy',
-    },
-    {
-        type: 'input',
-        message: 'Please enter a short description of how someone might use this application.',
-        name: 'descriptionHow',
+        message: 'Please enter a short description of your project. What is it? Why did you create it? How might someone use it?',
+        name: 'description',
     },
     {
         type: 'input',
@@ -41,13 +31,13 @@ const questions = [
     },
     {
         type: 'input',
-        message: 'Please provide instructions and examples on how to use your application.',
+        message: 'Please provide instructions and examples on how to use your project.',
         name: 'use',
     },
     {
         type: 'list',
         message: 'Please choose a license to use for your project.',
-        choices: ['MIT', 'Apache', 'GNU'],
+        choices: ['MIT', 'Apache', 'GNU', 'None'],
         name: 'license',
     },
     {
@@ -63,10 +53,27 @@ const questions = [
 ];
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+function writeToFile(fileName, data) {
+    fs.writeFile(`${fileName}.md`, generateMarkdown(data), "utf8", function (error) {
+     if (error) {
+            console.log(error);
+        } else {
+            console.log(`Success! Data written to ${fileName}.md.`);
+        }
+    });
+}
 
 // TODO: Create a function to initialize app
-function init() {}
+function init() {
+    inquirer
+        .prompt(questions)
+        .then((response) => {
+            writeToFile(response.title, response);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
 
 // Function call to initialize app
 init();
